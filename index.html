@@ -416,29 +416,288 @@ const DAYS_INFO = [
   {name:'Samedi',type:'Récupération active',badge:'🧘 Repos actif',color:'#f5c85a',bg:'rgba(245,200,90,0.08)'}
 ];
 
+const SVG = {
+  bench: `<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:8px;background:#1a1a1a;">
+    <style>
+      .arm-l{transform-origin:85px 55px;animation:benchL 2s ease-in-out infinite alternate;}
+      .arm-r{transform-origin:115px 55px;animation:benchR 2s ease-in-out infinite alternate;}
+      @keyframes benchL{from{transform:rotate(-30deg)}to{transform:rotate(10deg)}}
+      @keyframes benchR{from{transform:rotate(30deg)}to{transform:rotate(-10deg)}}
+    </style>
+    <rect x="40" y="75" width="120" height="10" rx="3" fill="#333"/>
+    <rect x="50" y="85" width="10" height="25" rx="2" fill="#333"/>
+    <rect x="140" y="85" width="10" height="25" rx="2" fill="#333"/>
+    <circle cx="100" cy="45" r="11" fill="#c8f55a"/>
+    <rect x="88" y="56" width="24" height="22" rx="4" fill="#c8f55a"/>
+    <g class="arm-l"><line x1="85" y1="58" x2="55" y2="45" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/><circle cx="55" cy="45" r="4" fill="#888"/></g>
+    <g class="arm-r"><line x1="115" y1="58" x2="145" y2="45" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/><circle cx="145" cy="45" r="4" fill="#888"/></g>
+    <line x1="42" y1="45" x2="158" y2="45" stroke="#888" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="42" cy="45" r="7" fill="#555"/><circle cx="158" cy="45" r="7" fill="#555"/>
+    <line x1="88" y1="78" x2="78" y2="100" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    <line x1="112" y1="78" x2="122" y2="100" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    <text x="100" y="115" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">Développé couché</text>
+  </svg>`,
+
+  pullup: `<svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:8px;background:#1a1a1a;">
+    <style>
+      .body-pu{transform-origin:100px 70px;animation:pullupA 2s ease-in-out infinite alternate;}
+      @keyframes pullupA{from{transform:translateY(15px)}to{transform:translateY(0px)}}
+    </style>
+    <rect x="20" y="18" width="160" height="7" rx="3" fill="#555"/>
+    <line x1="75" y1="18" x2="75" y2="8" stroke="#555" stroke-width="4"/>
+    <line x1="125" y1="18" x2="125" y2="8" stroke="#555" stroke-width="4"/>
+    <g class="body-pu">
+      <circle cx="75" cy="25" r="5" fill="#c8f55a"/><circle cx="125" cy="25" r="5" fill="#c8f55a"/>
+      <line x1="75" y1="25" x2="90" y2="48" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="125" y1="25" x2="110" y2="48" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="100" cy="52" r="11" fill="#c8f55a"/>
+      <rect x="88" y="63" width="24" height="26" rx="4" fill="#c8f55a"/>
+      <line x1="88" y1="89" x2="82" y2="115" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="112" y1="89" x2="118" y2="115" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    </g>
+    <text x="100" y="128" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">Tractions</text>
+  </svg>`,
+
+  press: `<svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:8px;background:#1a1a1a;">
+    <style>
+      .arms-pr{transform-origin:100px 65px;animation:pressA 2s ease-in-out infinite alternate;}
+      @keyframes pressA{from{transform:scaleY(0.75)}to{transform:scaleY(1)}}
+    </style>
+    <circle cx="100" cy="38" r="11" fill="#c8f55a"/>
+    <rect x="88" y="49" width="24" height="26" rx="4" fill="#c8f55a"/>
+    <g class="arms-pr">
+      <line x1="88" y1="60" x2="55" y2="40" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="112" y1="60" x2="145" y2="40" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="50" cy="38" r="7" fill="#888"/><circle cx="150" cy="38" r="7" fill="#888"/>
+    </g>
+    <line x1="88" y1="75" x2="80" y2="105" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    <line x1="112" y1="75" x2="120" y2="105" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    <rect x="70" y="105" width="12" height="18" rx="2" fill="#333"/>
+    <rect x="118" y="105" width="12" height="18" rx="2" fill="#333"/>
+    <text x="100" y="128" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">Développé militaire</text>
+  </svg>`,
+
+  row: `<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:8px;background:#1a1a1a;">
+    <style>
+      .elbow-r{transform-origin:110px 65px;animation:rowA 2s ease-in-out infinite alternate;}
+      @keyframes rowA{from{transform:rotate(20deg)}to{transform:rotate(-15deg)}}
+    </style>
+    <rect x="30" y="70" width="60" height="10" rx="3" fill="#333"/>
+    <rect x="30" y="80" width="10" height="25" rx="2" fill="#333"/>
+    <circle cx="65" cy="52" r="10" fill="#c8f55a"/>
+    <line x1="65" y1="62" x2="65" y2="80" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    <line x1="55" y1="66" x2="35" y2="75" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    <g class="elbow-r">
+      <line x1="110" y1="65" x2="145" y2="75" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="145" cy="78" r="6" fill="#888"/>
+    </g>
+    <line x1="75" y1="62" x2="110" y2="65" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    <line x1="65" y1="80" x2="58" y2="105" stroke="#c8f55a" stroke-width="4" stroke-linecap="round"/>
+    <text x="100" y="118" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">Rowing unilatéral</text>
+  </svg>`,
+
+  curl: `<svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:8px;background:#1a1a1a;">
+    <style>
+      .forearm{transform-origin:100px 75px;animation:curlA 2s ease-in-out infinite alternate;}
+      @keyframes curlA{from{transform:rotate(40deg)}to{transform:rotate(-10deg)}}
+    </style>
+    <circle cx="100" cy="35" r="11" fill="#c8f55a"/>
+    <rect x="88" y="46" width="24" height="28" rx="4" fill="#c8f55a"/>
+    <line x1="88" y1="74" x2="80" y2="105" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    <line x1="112" y1="74" x2="120" y2="105" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    <rect x="72" y="105" width="12" height="20" rx="2" fill="#333"/>
+    <rect x="116" y="105" width="12" height="20" rx="2" fill="#333"/>
+    <line x1="88" y1="60" x2="75" y2="75" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    <g class="forearm">
+      <line x1="75" y1="75" x2="60" y2="55" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="58" cy="52" r="7" fill="#888"/>
+    </g>
+    <line x1="112" y1="60" x2="125" y2="75" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    <line x1="125" y1="75" x2="140" y2="55" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="142" cy="52" r="7" fill="#888"/>
+    <text x="100" y="128" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">Curl biceps</text>
+  </svg>`,
+
+  dips: `<svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:8px;background:#1a1a1a;">
+    <style>
+      .dips-body{transform-origin:100px 70px;animation:dipsA 2s ease-in-out infinite alternate;}
+      @keyframes dipsA{from{transform:translateY(12px)}to{transform:translateY(0px)}}
+    </style>
+    <rect x="25" y="50" width="10" height="60" rx="3" fill="#333"/>
+    <rect x="165" y="50" width="10" height="60" rx="3" fill="#333"/>
+    <rect x="25" y="50" width="25" height="8" rx="3" fill="#555"/>
+    <rect x="150" y="50" width="25" height="8" rx="3" fill="#555"/>
+    <g class="dips-body">
+      <circle cx="100" cy="48" r="11" fill="#c8f55a"/>
+      <rect x="88" y="59" width="24" height="26" rx="4" fill="#c8f55a"/>
+      <line x1="88" y1="68" x2="50" y2="58" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="112" y1="68" x2="150" y2="58" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="88" y1="85" x2="82" y2="112" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="112" y1="85" x2="118" y2="112" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    </g>
+    <text x="100" y="128" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">Dips</text>
+  </svg>`,
+
+  plank: `<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:8px;background:#1a1a1a;">
+    <style>
+      .plank-hip{transform-origin:100px 58px;animation:plankA 3s ease-in-out infinite alternate;}
+      @keyframes plankA{from{transform:translateY(-2px)}to{transform:translateY(2px)}}
+    </style>
+    <rect x="20" y="80" width="160" height="4" rx="2" fill="#333"/>
+    <circle cx="160" cy="52" r="10" fill="#c8f55a"/>
+    <g class="plank-hip">
+      <line x1="150" y1="58" x2="45" y2="58" stroke="#c8f55a" stroke-width="8" stroke-linecap="round"/>
+      <line x1="150" y1="62" x2="155" y2="80" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="60" y1="58" x2="55" y2="80" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="45" y1="58" x2="25" y2="75" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="45" y1="58" x2="30" y2="68" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    </g>
+    <text x="100" y="95" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">Gainage frontal</text>
+  </svg>`,
+
+  squat: `<svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:8px;background:#1a1a1a;">
+    <style>
+      .squat-body{transform-origin:100px 70px;animation:squatA 2s ease-in-out infinite alternate;}
+      @keyframes squatA{from{transform:translateY(18px) scaleY(0.78)}to{transform:translateY(0px) scaleY(1)}}
+    </style>
+    <rect x="20" y="122" width="160" height="4" rx="2" fill="#333"/>
+    <g class="squat-body">
+      <circle cx="100" cy="35" r="11" fill="#c8f55a"/>
+      <rect x="88" y="46" width="24" height="28" rx="4" fill="#c8f55a"/>
+      <line x1="75" y1="52" x2="125" y2="52" stroke="#888" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="72" cy="52" r="6" fill="#555"/><circle cx="128" cy="52" r="6" fill="#555"/>
+      <line x1="88" y1="74" x2="72" y2="100" stroke="#c8f55a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="112" y1="74" x2="128" y2="100" stroke="#c8f55a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="72" y1="100" x2="65" y2="122" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="128" y1="100" x2="135" y2="122" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    </g>
+    <text x="100" y="128" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">Squat barre</text>
+  </svg>`,
+
+  deadlift: `<svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:8px;background:#1a1a1a;">
+    <style>
+      .dl-body{transform-origin:100px 75px;animation:dlA 2.5s ease-in-out infinite alternate;}
+      @keyframes dlA{from{transform:rotate(30deg) translateY(10px)}to{transform:rotate(0deg) translateY(0)}}
+    </style>
+    <rect x="20" y="118" width="160" height="5" rx="2" fill="#333"/>
+    <line x1="55" y1="110" x2="145" y2="110" stroke="#888" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="50" cy="110" r="10" fill="#555"/><circle cx="150" cy="110" r="10" fill="#555"/>
+    <g class="dl-body">
+      <circle cx="100" cy="28" r="11" fill="#c8f55a"/>
+      <rect x="88" y="39" width="24" height="30" rx="4" fill="#c8f55a"/>
+      <line x1="88" y1="55" x2="68" y2="90" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="112" y1="55" x2="132" y2="90" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="68" y1="90" x2="62" y2="118" stroke="#c8f55a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="132" y1="90" x2="138" y2="118" stroke="#c8f55a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="88" y1="60" x2="68" y2="110" stroke="#c8f55a" stroke-width="4" stroke-linecap="round"/>
+      <line x1="112" y1="60" x2="132" y2="110" stroke="#c8f55a" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    <text x="100" y="128" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">Soulevé de terre</text>
+  </svg>`,
+
+  lunge: `<svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:8px;background:#1a1a1a;">
+    <style>
+      .lunge-body{transform-origin:95px 65px;animation:lungeA 2s ease-in-out infinite alternate;}
+      @keyframes lungeA{from{transform:translateY(8px)}to{transform:translateY(0px)}}
+    </style>
+    <rect x="20" y="122" width="160" height="4" rx="2" fill="#333"/>
+    <g class="lunge-body">
+      <circle cx="95" cy="32" r="11" fill="#c8f55a"/>
+      <rect x="83" y="43" width="24" height="26" rx="4" fill="#c8f55a"/>
+      <circle cx="72" cy="58" r="6" fill="#888"/><circle cx="118" cy="58" r="6" fill="#888"/>
+      <line x1="83" y1="69" x2="60" y2="95" stroke="#c8f55a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="107" y1="69" x2="130" y2="95" stroke="#c8f55a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="60" y1="95" x2="55" y2="122" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="130" y1="95" x2="145" y2="110" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="145" y1="110" x2="148" y2="122" stroke="#c8f55a" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    <text x="100" y="128" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">Fentes marchées</text>
+  </svg>`,
+
+  legcurl: `<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:8px;background:#1a1a1a;">
+    <style>
+      .leg-curl{transform-origin:120px 72px;animation:lcA 2s ease-in-out infinite alternate;}
+      @keyframes lcA{from{transform:rotate(-35deg)}to{transform:rotate(10deg)}}
+    </style>
+    <rect x="30" y="60" width="100" height="12" rx="4" fill="#333"/>
+    <rect x="30" y="72" width="12" height="35" rx="3" fill="#333"/>
+    <circle cx="65" cy="48" r="10" fill="#c8f55a"/>
+    <line x1="65" y1="58" x2="65" y2="72" stroke="#c8f55a" stroke-width="6" stroke-linecap="round"/>
+    <line x1="55" y1="62" x2="40" y2="72" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    <line x1="75" y1="62" x2="90" y2="72" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    <line x1="90" y1="72" x2="120" y2="72" stroke="#c8f55a" stroke-width="6" stroke-linecap="round"/>
+    <g class="leg-curl">
+      <line x1="120" y1="72" x2="155" y2="72" stroke="#c8f55a" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="158" cy="74" r="7" fill="#888"/>
+    </g>
+    <text x="100" y="115" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">Leg curl</text>
+  </svg>`,
+
+  hipthrust: `<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:8px;background:#1a1a1a;">
+    <style>
+      .hip-up{transform-origin:100px 70px;animation:hipA 2s ease-in-out infinite alternate;}
+      @keyframes hipA{from{transform:translateY(14px) rotate(8deg)}to{transform:translateY(0) rotate(0deg)}}
+    </style>
+    <rect x="20" y="108" width="160" height="6" rx="3" fill="#333"/>
+    <rect x="20" y="68" width="50" height="12" rx="4" fill="#333"/>
+    <g class="hip-up">
+      <line x1="70" y1="80" x2="130" y2="68" stroke="#c8f55a" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="72" cy="54" r="9" fill="#888"/>
+      <line x1="55" y1="68" x2="55" y2="90" stroke="#888" stroke-width="5" stroke-linecap="round"/>
+      <line x1="130" y1="70" x2="120" y2="108" stroke="#c8f55a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="150" y1="68" x2="155" y2="108" stroke="#c8f55a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="63" y1="68" x2="75" y2="108" stroke="#888" stroke-width="5" stroke-linecap="round"/>
+      <line x1="110" y1="68" x2="120" y2="108" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    </g>
+    <line x1="80" y1="68" x2="165" y2="68" stroke="#888" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="78" cy="68" r="8" fill="#555"/><circle cx="167" cy="68" r="8" fill="#555"/>
+    <text x="100" y="118" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">Hip thrust</text>
+  </svg>`,
+
+  calf: `<svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:8px;background:#1a1a1a;">
+    <style>
+      .calf-body{transform-origin:100px 80px;animation:calfA 1.8s ease-in-out infinite alternate;}
+      @keyframes calfA{from{transform:translateY(10px)}to{transform:translateY(0)}}
+    </style>
+    <rect x="70" y="115" width="60" height="8" rx="2" fill="#333"/>
+    <g class="calf-body">
+      <circle cx="100" cy="30" r="11" fill="#c8f55a"/>
+      <rect x="88" y="41" width="24" height="28" rx="4" fill="#c8f55a"/>
+      <line x1="82" y1="52" x2="60" y2="58" stroke="#c8f55a" stroke-width="4" stroke-linecap="round"/>
+      <line x1="118" y1="52" x2="140" y2="58" stroke="#c8f55a" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="57" cy="60" r="6" fill="#888"/><circle cx="143" cy="60" r="6" fill="#888"/>
+      <line x1="88" y1="69" x2="84" y2="100" stroke="#c8f55a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="112" y1="69" x2="116" y2="100" stroke="#c8f55a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="84" y1="100" x2="82" y2="115" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="116" y1="100" x2="118" y2="115" stroke="#c8f55a" stroke-width="5" stroke-linecap="round"/>
+    </g>
+    <text x="100" y="128" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">Mollets debout</text>
+  </svg>`
+};
+
 const SESSIONS = {
   haut: [
-    {name:'Développé couché',sets:'4 × 8–10',rest:'90s',muscle:'Pectoraux',gif:'https://wger.de/static/images/exercises/main-image-cache/58-0.png',gif2:'https://wger.de/static/images/exercises/main-image-cache/58-1.png',tips:['Descends la barre jusqu\'à effleurer la poitrine','Pieds à plat sur le sol, fesses sur le banc','Coudes à 45° du corps — pas à 90°','Expire en poussant, inspire en descendant']},
-    {name:'Tractions / tirage haute poulie',sets:'4 × 8–12',rest:'90s',muscle:'Dos / Biceps',gif:'https://wger.de/static/images/exercises/main-image-cache/36-0.png',gif2:'https://wger.de/static/images/exercises/main-image-cache/36-1.png',tips:['Prise légèrement plus large que les épaules','Tire les coudes vers le bas et les hanches','Contracte fort le dos en haut du mouvement','Descends lentement — 2 à 3 secondes']},
-    {name:'Développé militaire haltères',sets:'3 × 10–12',rest:'75s',muscle:'Épaules',gif:'https://wger.de/static/images/exercises/main-image-cache/61-0.png',gif2:'https://wger.de/static/images/exercises/main-image-cache/61-1.png',tips:['Assis ou debout, dos droit','Haltères à hauteur des épaules au départ','Ne verrouille pas les coudes en haut','Core gaîné tout au long du mouvement']},
-    {name:'Rowing unilatéral haltère',sets:'3 × 10/côté',rest:'60s',muscle:'Dos',gif:'https://wger.de/static/images/exercises/main-image-cache/72-0.png',gif2:'https://wger.de/static/images/exercises/main-image-cache/72-1.png',tips:['Main et genou appuyés sur le banc','Tire le coude vers le plafond','Garde le dos horizontal et plat','Contracte le dos en fin de mouvement']},
-    {name:'Curl biceps barre',sets:'3 × 12',rest:'60s',muscle:'Biceps',gif:'https://wger.de/static/images/exercises/main-image-cache/81-0.png',gif2:'https://wger.de/static/images/exercises/main-image-cache/81-1.png',tips:['Coudes fixes contre le corps','Pas de balancement du buste — strict','Paume vers le haut tout au long','Descends lentement pour plus d\'efficacité']},
-    {name:'Dips / pushdown triceps',sets:'3 × 12',rest:'60s',muscle:'Triceps',gif:'https://wger.de/static/images/exercises/main-image-cache/86-0.png',gif2:'https://wger.de/static/images/exercises/main-image-cache/86-1.png',tips:['Dips : penche-toi légèrement en avant','Descends jusqu\'à 90° aux coudes minimum','Pushdown : coudes fixes, pousse vers le bas','Contracte le triceps en bas du mouvement']},
-    {name:'Gainage frontal',sets:'3 × 45–60s',rest:'30s',muscle:'Core',gif:'https://wger.de/static/images/exercises/main-image-cache/91-0.png',gif2:'https://wger.de/static/images/exercises/main-image-cache/91-1.png',tips:['Corps droit de la tête aux pieds','Pas de chute des hanches ni de fessiers en l\'air','Contracte le ventre et les fessiers','Respire normalement — ne bloque pas']}
+    {name:'Développé couché',sets:'4 × 8–10',rest:'90s',muscle:'Pectoraux',svg:'bench',tips:['Descends la barre jusqu\'à effleurer la poitrine','Pieds à plat sur le sol, fesses sur le banc','Coudes à 45° du corps — pas à 90°','Expire en poussant, inspire en descendant']},
+    {name:'Tractions / tirage haute poulie',sets:'4 × 8–12',rest:'90s',muscle:'Dos / Biceps',svg:'pullup',tips:['Prise légèrement plus large que les épaules','Tire les coudes vers le bas et les hanches','Contracte fort le dos en haut du mouvement','Descends lentement — 2 à 3 secondes']},
+    {name:'Développé militaire haltères',sets:'3 × 10–12',rest:'75s',muscle:'Épaules',svg:'press',tips:['Assis ou debout, dos droit','Haltères à hauteur des épaules au départ','Ne verrouille pas les coudes en haut','Core gaîné tout au long du mouvement']},
+    {name:'Rowing unilatéral haltère',sets:'3 × 10/côté',rest:'60s',muscle:'Dos',svg:'row',tips:['Main et genou appuyés sur le banc','Tire le coude vers le plafond','Garde le dos horizontal et plat','Contracte le dos en fin de mouvement']},
+    {name:'Curl biceps barre',sets:'3 × 12',rest:'60s',muscle:'Biceps',svg:'curl',tips:['Coudes fixes contre le corps','Pas de balancement du buste — strict','Paume vers le haut tout au long','Descends lentement pour plus d\'efficacité']},
+    {name:'Dips / pushdown triceps',sets:'3 × 12',rest:'60s',muscle:'Triceps',svg:'dips',tips:['Dips : penche-toi légèrement en avant','Descends jusqu\'à 90° aux coudes minimum','Pushdown : coudes fixes, pousse vers le bas','Contracte le triceps en bas du mouvement']},
+    {name:'Gainage frontal',sets:'3 × 45–60s',rest:'30s',muscle:'Core',svg:'plank',tips:['Corps droit de la tête aux pieds','Pas de chute des hanches ni de fessiers en l\'air','Contracte le ventre et les fessiers','Respire normalement — ne bloque pas']}
   ],
   bas: [
-    {name:'Squat barre',sets:'4 × 8',rest:'2min',muscle:'Quadriceps / Fessiers',gif:'https://wger.de/static/images/exercises/main-image-cache/111-0.png',gif2:'https://wger.de/static/images/exercises/main-image-cache/111-1.png',tips:['Pieds largeur épaules, pointes légèrement ouvertes','Descends jusqu\'à ce que les cuisses soient parallèles','Genoux dans l\'axe des pieds — ne rentre pas','Regard droit devant, dos neutre']},
-    {name:'Soulevé de terre',sets:'3 × 6–8',rest:'2min',muscle:'Dos / Ischios / Fessiers',gif:'https://wger.de/static/images/exercises/main-image-cache/29-0.png',gif2:'https://wger.de/static/images/exercises/main-image-cache/29-1.png',tips:['Barre au-dessus des lacets, pieds hip-width','Dos plat — jamais voûté','Pousse le sol avec les pieds (ne tire pas)','La barre reste contre les jambes tout au long']},
-    {name:'Fentes marchées haltères',sets:'3 × 10/jambe',rest:'75s',muscle:'Quadriceps / Fessiers',gif:'https://wger.de/static/images/exercises/main-image-cache/99-0.png',gif2:'https://wger.de/static/images/exercises/main-image-cache/99-1.png',tips:['Grand pas en avant — genou avant à 90°','Genou arrière sans toucher le sol','Garde le buste droit et vertical','Pousse sur le talon avant pour revenir']},
-    {name:'Leg curl machine',sets:'3 × 12',rest:'60s',muscle:'Ischio-jambiers',gif:'https://wger.de/static/images/exercises/main-image-cache/116-0.png',gif2:'https://wger.de/static/images/exercises/main-image-cache/116-1.png',tips:['Axe de la machine aligné avec le genou','Tire les talons vers les fessiers','Contraction maximale en fin de mouvement','Descends lentement — 2 à 3 secondes']},
-    {name:'Hip thrust barre / haltère',sets:'3 × 12',rest:'60s',muscle:'Fessiers',gif:'https://wger.de/static/images/exercises/main-image-cache/192-0.png',gif2:'https://wger.de/static/images/exercises/main-image-cache/192-1.png',tips:['Dos appuyé sur le banc, barre sur les hanches','Pousse les hanches vers le plafond','Contracte les fessiers fort en haut','Corps droit de l\'épaule au genou en haut']},
-    {name:'Mollets debout',sets:'4 × 15',rest:'45s',muscle:'Mollets',gif:'https://wger.de/static/images/exercises/main-image-cache/126-0.png',gif2:'https://wger.de/static/images/exercises/main-image-cache/126-1.png',tips:['Amplitude complète — descends talon en dessous','Monte sur la pointe des pieds au maximum','Tempo lent : 2s haut, 2s bas','Peut se faire sur une marche pour plus d\'amplitude']}
+    {name:'Squat barre',sets:'4 × 8',rest:'2min',muscle:'Quadriceps / Fessiers',svg:'squat',tips:['Pieds largeur épaules, pointes légèrement ouvertes','Descends jusqu\'à ce que les cuisses soient parallèles','Genoux dans l\'axe des pieds — ne rentre pas','Regard droit devant, dos neutre']},
+    {name:'Soulevé de terre',sets:'3 × 6–8',rest:'2min',muscle:'Dos / Ischios / Fessiers',svg:'deadlift',tips:['Barre au-dessus des lacets, pieds hip-width','Dos plat — jamais voûté','Pousse le sol avec les pieds (ne tire pas)','La barre reste contre les jambes tout au long']},
+    {name:'Fentes marchées haltères',sets:'3 × 10/jambe',rest:'75s',muscle:'Quadriceps / Fessiers',svg:'lunge',tips:['Grand pas en avant — genou avant à 90°','Genou arrière sans toucher le sol','Garde le buste droit et vertical','Pousse sur le talon avant pour revenir']},
+    {name:'Leg curl machine',sets:'3 × 12',rest:'60s',muscle:'Ischio-jambiers',svg:'legcurl',tips:['Axe de la machine aligné avec le genou','Tire les talons vers les fessiers','Contraction maximale en fin de mouvement','Descends lentement — 2 à 3 secondes']},
+    {name:'Hip thrust barre / haltère',sets:'3 × 12',rest:'60s',muscle:'Fessiers',svg:'hipthrust',tips:['Dos appuyé sur le banc, barre sur les hanches','Pousse les hanches vers le plafond','Contracte les fessiers fort en haut','Corps droit de l\'épaule au genou en haut']},
+    {name:'Mollets debout',sets:'4 × 15',rest:'45s',muscle:'Mollets',svg:'calf',tips:['Amplitude complète — descends talon en dessous','Monte sur la pointe des pieds au maximum','Tempo lent : 2s haut, 2s bas','Peut se faire sur une marche pour plus d\'amplitude']}
   ],
   cf: [
-    {name:'Volume CrossFit : 3 séances max',sets:'Règle clé',rest:'—',muscle:'Récupération',gif:'',tips:['Plus de 3 séances/semaine = surentraînement','Qualité > Quantité pour la prise de masse','Si fatigué : réduis l\'intensité du WOD','Écoute ton corps — douleur ≠ courbatures']},
-    {name:'Nutrition autour du CrossFit',sets:'Priorité',rest:'—',muscle:'Performance',gif:'',tips:['Mange glucides 1h avant (riz, avoine, banane)','Whey + fruit dans les 30 min après','Repas solide dans l\'heure qui suit','Ne saute jamais le repas post-entraînement']},
-    {name:'Séance légère le samedi',sets:'30 min max',rest:'—',muscle:'Récupération active',gif:'',tips:['Pompes, abdos, élastiques — léger','Objectif : irriguer les muscles, pas fatiguer','Stretching dynamique 10 min minimum','Pas de HIIT ni de WOD intense ce jour-là']},
-    {name:'Dimanche : repos complet',sets:'Obligatoire',rest:'—',muscle:'Régénération',gif:'',tips:['Le muscle pousse pendant le repos, pas l\'effort','Sommeil : 7-9h est non-négociable','Privilégie marche légère si actif','C\'est ici que se fait la transformation']}
+    {name:'Volume CrossFit : 3 séances max',sets:'Règle clé',rest:'—',muscle:'Récupération',svg:'',tips:['Plus de 3 séances/semaine = surentraînement','Qualité > Quantité pour la prise de masse','Si fatigué : réduis l\'intensité du WOD','Écoute ton corps — douleur ≠ courbatures']},
+    {name:'Nutrition autour du CrossFit',sets:'Priorité',rest:'—',muscle:'Performance',svg:'',tips:['Mange glucides 1h avant (riz, avoine, banane)','Whey + fruit dans les 30 min après','Repas solide dans l\'heure qui suit','Ne saute jamais le repas post-entraînement']},
+    {name:'Séance légère le samedi',sets:'30 min max',rest:'—',muscle:'Récupération active',svg:'',tips:['Pompes, abdos, élastiques — léger','Objectif : irriguer les muscles, pas fatiguer','Stretching dynamique 10 min minimum','Pas de HIIT ni de WOD intense ce jour-là']},
+    {name:'Dimanche : repos complet',sets:'Obligatoire',rest:'—',muscle:'Régénération',svg:'',tips:['Le muscle pousse pendant le repos, pas l\'effort','Sommeil : 7-9h est non-négociable','Privilégie marche légère si actif','C\'est ici que se fait la transformation']}
   ]
 };
 
@@ -538,23 +797,7 @@ function renderExercises(){
         <div class="ex-chevron">▼</div>
       </div>
       <div class="ex-body">
-        ${ex.gif ? `
-        <div style="display:flex;gap:6px;margin-bottom:12px;" id="imgs-${i}">
-          <div style="flex:1;text-align:center;">
-            <div style="font-size:9px;color:var(--accent);margin-bottom:3px;letter-spacing:1px;">DÉPART</div>
-            <img src="${ex.gif}" alt="départ" loading="lazy" style="width:100%;border-radius:8px;background:var(--bg3);min-height:90px;object-fit:cover;" onerror="document.getElementById('imgs-${i}').style.display='none';document.getElementById('fb-${i}').style.display='flex'">
-          </div>
-          <div style="flex:1;text-align:center;">
-            <div style="font-size:9px;color:var(--accent2);margin-bottom:3px;letter-spacing:1px;">ARRIVÉE</div>
-            <img src="${ex.gif2||ex.gif}" alt="arrivée" loading="lazy" style="width:100%;border-radius:8px;background:var(--bg3);min-height:90px;object-fit:cover;" onerror="this.style.display='none'">
-          </div>
-        </div>
-        <div id="fb-${i}" style="display:none;width:100%;height:100px;border-radius:10px;background:var(--bg3);align-items:center;justify-content:center;flex-direction:column;margin-bottom:12px;border:1px dashed var(--border);">
-          <div style="font-size:30px;margin-bottom:4px;">💪</div>
-          <div style="font-size:11px;color:var(--text2);">${ex.muscle}</div>
-        </div>` : `<div style="width:100%;height:70px;border-radius:10px;background:var(--bg3);display:flex;align-items:center;justify-content:center;margin-bottom:12px;border:1px dashed var(--border);">
-          <div style="font-size:12px;color:var(--text2);">📋 Conseils pratiques</div>
-        </div>`}
+        ${ex.svg ? `<div style="margin-bottom:12px;">${SVG[ex.svg]||''}</div>` : `<div style="width:100%;height:70px;border-radius:10px;background:var(--bg3);display:flex;align-items:center;justify-content:center;margin-bottom:12px;border:1px dashed var(--border);"><div style="font-size:12px;color:var(--text2);">📋 Conseils pratiques</div></div>`}
         <div class="ex-tips">
           ${ex.tips.map(t=>`<div class="ex-tip"><span class="ex-tip-dot">→</span><span>${t}</span></div>`).join('')}
         </div>
